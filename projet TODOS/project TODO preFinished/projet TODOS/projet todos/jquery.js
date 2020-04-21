@@ -6,9 +6,10 @@ $(document).ready(function(){
   		todo: document.getElementById('todo'),
   		done: document.getElementById('done')
   };
-  // console.log(input, btn, lists);
- var makeTaskHtml = function(str, onCheck){ // function who will create the list elements that we gonna inject inside the lists, the first parameter is the string thats gonna be added as tasks and the second is the callback function onCheck we can see the use of it below
- 		var el = document.createElement("li");//creating the element using creatElement
+
+  // console.log(input,input2, btn, lists);
+ var makeTask = function(str, onCheck){ // function who will create the list elements that we gonna inject inside the lists, the first parameter is the string thats gonna be added as tasks and the second is the callback function onCheck we can see the use of it below
+ 		var element = document.createElement("li");//creating the element using creatElement
  		var checkbox = document.createElement("input");// create a checkbox
 
 
@@ -21,10 +22,10 @@ $(document).ready(function(){
  		checkbox.type = 'radio';//precising the type of the checkbox
 
 
-    el.appendChild(checkbox);//putting the checkbox inside the "li" element created 
+    element.appendChild(checkbox);//putting the checkbox inside the "li" element created 
 
- 		el.appendChild(label);//putting the text span inside the element
- 		return el;
+ 		element.appendChild(label);//putting the text span inside the element
+ 		return element;
   }  
   
   var addTask = function(task){// to function that will add the task to the  list todo element above
@@ -32,7 +33,7 @@ $(document).ready(function(){
   };
 
   var onCheck = function(event){
-  	var task = event.target.parentElement; // return the parent element of the element  that targeted the event in our case the li
+  	var task = event.target.parentElement; // return the parent element of the element  that was targeted by event in our case the li
   	var list = task.parentElement.id;// we are gonna check to parent of the "li" (here the "ul") so we can check the id of the ul (for example if it is "done" it must be moved to the other list)
 
   	lists[list === 'done' ? 'todo' : 'done'].appendChild(task);//it will remove this elemen(task) from where it was and append it in our element because it cant be in two places in the same time in the DOM, if the value of the id is 'done' then append it to the ul todo or incompleted list else append it to our done list of completed task, its a condition inside a key (really amasing) we must use the square bracket cause its a variable
@@ -48,7 +49,7 @@ var onInput = function(){
   if(str1 === "monday" || str1 === "tuesday" || str1 === "thursday" || str1 === "wednesday" || str1 === "friday" || str1 === "saturday" || str1 === "sunday" ){
   var str2 = str + ' ' + 'was scheduled for '+ str1;
 	if(str.length > 0 && str1.length > 0){// if the input is letter at least not empty 
-		addTask(makeTaskHtml(str2, onCheck));// the first parameter of our function add task is the list created by our function makeTaskHtml( our function makeTaskHtml will take as parameter the str entered as input and the call back function an return the list to do ) 
+		addTask(makeTask(str2, onCheck));// the first parameter of our function add task is the list created by our function makeTaskHtml( our function makeTaskHtml will take as parameter the str entered as input and the call back function an return the list to do ) 
 		input.value = ""; // this will clear the input after we entered it
     input2.value= "";
 		input.focus();//it's a html DOM method to an element here our input, so it give us always focus on the input    
